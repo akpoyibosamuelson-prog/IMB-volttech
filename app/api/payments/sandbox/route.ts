@@ -1,31 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
+import { NextResponse } from 'next/server';
+import { requireRole } from '@/lib/server-auth';
 
-const paymentSchema = z.object({
-  amount: z.number().positive(),
-  paymentMethod: z.enum(['bank_transfer', 'cash', 'online', 'sandbox']),
-  reference: z.string().min(3),
-  customerEmail: z.string().email().optional(),
-});
-
-export async function POST(request: NextRequest) {
-  try {
-    const json = await request.json();
-    const result = paymentSchema.safeParse(json);
-
-    if (!result.success) {
-      return NextResponse.json({ error: 'Invalid payment payload', details: result.error.flatten() }, { status: 400 });
-    }
-
-    return NextResponse.json({
-      message: 'Sandbox payment accepted. Replace with verified payment gateway integration in production.',
-      status: 'pending_verification',
-      amount: result.data.amount,
-      paymentMethod: result.data.paymentMethod,
-      reference: result.data.reference,
-      gateway: 'sandbox-mode',
-    });
-  } catch (error) {
-    return NextResponse.json({ error: 'Invalid payment request' }, { status: 400 });
+export async function GET() {
+  const auth = requireRole(['SUPER_ADMIN', 'BUSINESS_OWNER', 'STAFF']);
+  if (auth.error) {
+    return NextResponse.json({ error: auth.error }, { status: auth.user ? 403 : 401 });
   }
+
+  return NextResponse.json({
+    status: 'sandbox',
+    note: 'This payment flow is configured for sandbox/test mode until production credentials are provided.',
+    provider: 'Paystack or Flutterwave-ready',
+  });
 }
