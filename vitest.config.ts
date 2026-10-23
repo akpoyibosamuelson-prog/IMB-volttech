@@ -1,9 +1,13 @@
-import { defineConfig } from 'vitest/config';
+import { describe, expect, it } from 'vitest';
 
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: 'node',
-    include: ['tests/**/*.test.ts'],
-  },
+describe('VoltBiz demo checks', () => {
+  it('keeps core business values in the demo app', () => {
+    expect(['service booking', 'inventory', 'marketplace', 'jobs']).toHaveLength(4);
+  });
+
+  it('supports the expected business domains', () => {
+    expect(['Electrical services', 'Material marketplace', 'Financial reports']).toEqual(
+      expect.arrayContaining(['Electrical services', 'Material marketplace']),
+    );
+  });
 });

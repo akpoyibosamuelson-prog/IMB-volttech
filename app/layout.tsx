@@ -1,20 +1,22 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Navbar } from '@/components/navbar';
-import { Footer } from '@/components/footer';
+import { SiteHeader } from '@/components/site-header';
+import { SiteFooter } from '@/components/site-footer';
 
 export const metadata: Metadata = {
-  title: 'VoltBiz | Electrical Services & Marketplace',
-  description: 'VoltBiz helps customers book electrical services and buy electrical materials from trusted suppliers and wholesalers.',
+  title: 'VoltBiz | Electrical services and materials marketplace',
+  description: 'Professional electrical services, booking, inventory, and marketplace platform for Nigerian electrical businesses.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-slate-50 text-slate-900 antialiased">
-        <Navbar />
-        {children}
-        <Footer />
+        <div className="min-h-screen">
+          <SiteHeader />
+          <main>{children}</main>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

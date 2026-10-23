@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   return NextResponse.json({
-    status: 'ok',
-    service: 'VoltBiz API',
+    ok: true,
+    app: 'VoltBiz',
     environment: process.env.NODE_ENV || 'development',
-    timestamp: new Date().toISOString(),
+    status: 'demo-mode',
   });
 }

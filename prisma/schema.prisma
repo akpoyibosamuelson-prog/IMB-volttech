@@ -3,17 +3,72 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-enum Role {
+model User {
+  id             String      @id @default(cuid())
+  email          String      @unique
+  name           String
+  phone          String?
+  role           UserRole
+  passwordHash   String?
+  createdAt      DateTime    @default(now())
+  bookings       Booking[]
+  materialOrders MaterialRequest[]
+  orders         Order[]
+  notifications  Notification[]
+  expenses       Expense[]
+  auditLogs      AuditLog[]
+}
+
+enum UserRole {
   SUPER_ADMIN
-  OWNER
+  BUSINESS_OWNER
   STAFF
   WHOLESALER
   RETAILER
   CUSTOMER
+}
+
+model Service {
+  id             String          @id @default(cuid())
+  name           String
+  category       String
+  description    String
+  imageUrl       String?
+  serviceType    String
+  priceType      String
+  fixedPrice     Decimal?
+  estimatedLow   Decimal?
+  estimatedHigh  Decimal?
+  durationMins   Int?
+  availability   String
+  inspectionReq  String?
+  isActive       Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  bookings       Booking[]
+  quotations     Quotation[]
+}
+
+model Booking {
+  id                String         @id @default(cuid())
+  bookingRef        String         @unique
+  customerId        String
+  customer          User           @relation(fields: [customerId], references: [id])
+  serviceId         String
+  service           Service        @relation(fields: [serviceId], references: [id])
+  reason            String
+  faultDescription  String
+  address           String
+  preferredDateTime DateTime
+  status            BookingStatus  @default(PENDING)
+  fee              Decimal?
+  cancellationReason String?
+  createdAt         DateTime       @default(now())
+  job              Job?
+  images           BookingImage[]
 }
 
 enum BookingStatus {
@@ -27,120 +82,203 @@ enum BookingStatus {
   CANCELLED
 }
 
-model User {
-  id           String    @id @default(cuid())
-  name         String
-  email        String    @unique
-  passwordHash String
-  role         Role      @default(CUSTOMER)
-  phone        String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  bookings     Booking[]
-  products     Product[]
-  orders       Order[]
-  expenses     Expense[]
-  notifications Notification[]
+model BookingImage {
+  id         String   @id @default(cuid())
+  bookingId  String
+  booking    Booking  @relation(fields: [bookingId], references: [id])
+  url        String
+  createdAt  DateTime @default(now())
 }
 
-model Service {
-  id                    String   @id @default(cuid())
-  name                  String
-  description           String
-  category              String
-  imageUrl              String?
-  priceType             String
-  fixedPrice            Float?
-  estimateMin           Float?
-  estimateMax           Float?
-  durationMinutes       Int?
-  availability          String
-  inspectionRequirements String?
-  isActive              Boolean  @default(true)
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  bookings              Booking[]
+model Job {
+  id                String   @id @default(cuid())
+  bookingId         String   @unique
+  booking           Booking  @relation(fields: [bookingId], references: [id])
+  assignedStaffId   String?
+  status            String   @default("open")
+  inspectionNotes   String?
+  quotationNote     String?
+  labourCost        Decimal?
+  additionalCharges Decimal?
+  completionPhotos  String[]
+  completionNotes   String?
+  createdAt         DateTime @default(now())
+  invoices          Invoice[]
 }
 
-model Booking {
-  id                String        @id @default(cuid())
-  bookingRef        String        @unique
-  reason            String
-  description       String
-  address           String
-  preferredDate     String
-  preferredTime     String
-  status            BookingStatus @default(PENDING)
-  fee               Float?
-  images            String?
-  createdAt         DateTime      @default(now())
-  serviceId         String
-  customerId        String
-  service           Service       @relation(fields: [serviceId], references: [id])
-  customer          User          @relation(fields: [customerId], references: [id])
+model Quotation {
+  id          String   @id @default(cuid())
+  serviceId    String
+  service      Service  @relation(fields: [serviceId], references: [id])
+  customerId   String
+  amount       Decimal
+  notes        String?
+  status      String   @default("pending")
+  createdAt    DateTime @default(now())
+}
+
+model MaterialRequest {
+  id                 String   @id @default(cuid())
+  customerId         String
+  customer           User     @relation(fields: [customerId], references: [id])
+  title              String
+  description        String
+  quantity           Int
+  deliveryPreference String
+  budget             Decimal?
+  imageUrl           String?
+  status             String   @default("pending")
+  createdAt          DateTime @default(now())
+  order              Order?
+}
+
+model Supplier {
+  id         String   @id @default(cuid())
+  name       String
+  email      String?
+  phone      String?
+  address    String?
+  createdAt  DateTime @default(now())
+  products   Product[]
+}
+
+model ProductCategory {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  products  Product[]
 }
 
 model Product {
-  id             String   @id @default(cuid())
-  name           String
-  description    String
-  category       String
-  sku            String   @unique
-  imageUrl       String?
-  purchaseCost   Float?
-  retailPrice    Float?
-  wholesalePrice Float?
-  stock          Int      @default(0)
-  minStock       Int      @default(0)
-  active         Boolean  @default(true)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  vendorId       String?
-  vendor         User?    @relation(fields: [vendorId], references: [id])
-  orderItems     OrderItem[]
+  id          String           @id @default(cuid())
+  name        String
+  sku         String           @unique
+  categoryId  String?
+  category    ProductCategory? @relation(fields: [categoryId], references: [id])
+  supplierId  String?
+  supplier    Supplier?        @relation(fields: [supplierId], references: [id])
+  description String
+  imageUrl    String?
+  costPrice   Decimal?
+  wholesalePrice Decimal?
+  retailPrice Decimal?
+  minOrderQty Int?
+  stockQty    Int             @default(0)
+  minStockQty Int            @default(0)
+  isActive    Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+  orderItems  OrderItem[]
+  stockMovements StockMovement[]
+}
+
+model StockMovement {
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  type       String
+  quantity   Int
+  reason     String?
+  createdAt  DateTime @default(now())
 }
 
 model Order {
-  id          String      @id @default(cuid())
-  orderNumber String      @unique
-  customerId  String
-  customer    User        @relation(fields: [customerId], references: [id])
-  total       Float
-  status      String      @default("PENDING")
-  createdAt   DateTime    @default(now())
-  items       OrderItem[]
+  id            String      @id @default(cuid())
+  customerId    String
+  customer      User        @relation(fields: [customerId], references: [id])
+  materialRequestId String? @unique
+  materialRequest MaterialRequest? @relation(fields: [materialRequestId], references: [id])
+  orderNumber   String      @unique
+  status        String      @default("pending")
+  paymentStatus String      @default("pending")
+  subtotal      Decimal
+  shippingFee   Decimal?
+  total         Decimal
+  createdAt     DateTime    @default(now())
+  items         OrderItem[]
+  payments      Payment[]
+  invoices      Invoice[]
+  deliveries    Delivery[]
 }
 
 model OrderItem {
-  id        String   @id @default(cuid())
-  orderId   String
-  productId String
-  quantity  Int
-  unitPrice Float
-  order     Order    @relation(fields: [orderId], references: [id])
-  product   Product  @relation(fields: [productId], references: [id])
-  createdAt DateTime @default(now())
+  id         String  @id @default(cuid())
+  orderId    String
+  order      Order   @relation(fields: [orderId], references: [id])
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+  quantity   Int
+  unitPrice  Decimal
+  total      Decimal
+}
+
+model Payment {
+  id                  String   @id @default(cuid())
+  orderId             String
+  order               Order    @relation(fields: [orderId], references: [id])
+  method              String
+  provider            String?
+  reference           String?  @unique
+  status              String   @default("pending")
+  amount              Decimal
+  verifiedAt          DateTime?
+  webhookSignature    String?
+  createdAt           DateTime @default(now())
+}
+
+model Invoice {
+  id         String   @id @default(cuid())
+  orderId    String?
+  order      Order?   @relation(fields: [orderId], references: [id])
+  jobId      String?
+  job        Job?     @relation(fields: [jobId], references: [id])
+  number     String   @unique
+  total      Decimal
+  status     String   @default("draft")
+  issuedAt   DateTime @default(now())
+}
+
+model Delivery {
+  id            String   @id @default(cuid())
+  orderId       String
+  order         Order    @relation(fields: [orderId], references: [id])
+  status        String   @default("pending")
+  deliveryType  String
+  address       String
+  eta           DateTime?
+  trackingCode  String?
+  createdAt     DateTime @default(now())
 }
 
 model Expense {
   id          String   @id @default(cuid())
   userId      String
+  user        User     @relation(fields: [userId], references: [id])
   category    String
-  amount      Float
+  amount      Decimal
   paymentMethod String
   description String
-  date        DateTime @default(now())
+  date        DateTime
   receiptUrl  String?
-  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
 }
 
 model Notification {
-  id        String    @id @default(cuid())
-  userId    String
-  type      String
-  title     String
-  message   String
-  readAt    DateTime?
-  createdAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id])
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  message     String
+  type        String
+  isRead      Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  action     String
+  entityType String
+  entityId   String
+  details    String?
+  createdAt  DateTime @default(now())
 }
