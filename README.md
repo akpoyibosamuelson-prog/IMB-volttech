@@ -1,56 +1,35 @@
-# VoltBiz
+# VoltBiz progress tracker
 
-VoltBiz is an electrical services, inventory, and materials marketplace platform built for modern electrical business operations in Nigeria.
+## Completed
 
-## Repository status
+- [x] Repository initialized and project scaffold created
+- [x] Marketing homepage implemented with mobile-responsive design
+- [x] Login and registration flows created
+- [x] Service booking form added with demo submission API
+- [x] Marketplace browsing and search implemented
+- [x] Customer and administrator dashboard layouts implemented
+- [x] Demo API endpoints created for health, products, booking, auth, inventory, file uploads, and payment webhook validation
+- [x] Database schema prepared for PostgreSQL + Prisma
+- [x] Role definitions and access-control helper declarations added
+- [x] Basic business-logic tests created for booking references and fees
+- [x] Auth session and authorization helpers added for server-side enforcement
+- [x] Inventory and financial report endpoints added with role checks
 
-- Repository: akpoyibosamuelson-prog/IMB-volttech
-- Branch: voltbiz-initial
-- Initial state: empty repository aside from a placeholder README
-- Current implementation: production-oriented Next.js foundation for the VoltBiz platform with a polished marketing homepage, demo service booking flow, marketplace browsing shell, admin/customer dashboard layouts, and app APIs
+## In progress
 
-## Stack selected
+- [ ] Real database migrations and seeded demo data
+- [ ] Secure session integration with a persistent DB-backed user store
+- [ ] Payment verification and webhook safeguards with provider-specific logic
+- [ ] Inventory transaction safeguards, stock movement auditing, and reconciliation
+- [ ] Quotation and job management workflows
+- [ ] Notification engine and provider integrations
+- [ ] Production deployment and environment security checks
 
-- Frontend: Next.js + TypeScript + Tailwind CSS
-- Backend: Next.js server routes and API layer
-- Database: PostgreSQL with Prisma ORM (schema included)
-- Auth: Auth.js / NextAuth-ready foundation
-- Storage: S3-compatible or Supabase object storage
-- Payments: Paystack / Flutterwave sandbox-ready design with server-side verification hooks
-- Testing: Vitest + Playwright-ready structure for business logic and UI regression checks
+## Not yet tested
 
-## Current milestones
-
-Completed:
-- Project scaffold created
-- Tailwind styling foundation added
-- Homepage designed and implemented
-- Login and registration screens created
-- Booking page and demo submission flow created
-- Marketplace page created
-- Customer and admin dashboard shell created
-- Demo API routes added for health, registration, login, and booking validation
-- Prisma schema prepared for future database implementation
-
-Pending / planned next:
-- Real database migrations and seeded demo data
-- Role-based server authorization and protection
-- Secure file upload validation and storage
-- Payment verification flow and webhook processing
-- Inventory transaction safeguards and stock movement logic
-- Notification and reporting features
-- End-to-end tests and production hardening
-
-## Setup
-
-1. Install dependencies: npm install
-2. Add environment variables in .env.local using .env.example as a template
-3. Configure PostgreSQL and run Prisma migrations when ready
-4. Run the app: npm run dev
-
-## Security guidance
-
-- Keep all secrets in environment variables
-- Do not commit payment secrets or real credentials
-- Use server-side validation before processing orders, payments, or access
-- Keep customer-only records and financial data restricted to authorized roles
+- [ ] Full Next.js production build execution
+- [ ] Login and registration in an authenticated environment
+- [ ] Payment sandbox verification flow
+- [ ] Inventory stock movement logic under concurrency
+- [ ] Unauthorized access checks
+- [ ] Mobile responsiveness automated checks

@@ -1,34 +1,33 @@
-# VoltBiz progress tracker
+import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/auth';
 
-## Completed
+export async function GET(request: NextRequest) {
+  const session = await auth();
 
-- [x] Repository initialized and project scaffold created
-- [x] Marketing homepage implemented with mobile-responsive design
-- [x] Login and registration flows created
-- [x] Service booking form added with demo submission API
-- [x] Marketplace browsing and search implemented
-- [x] Customer and administrator dashboard layouts implemented
-- [x] Demo API endpoints created for health, products, booking, and auth flows
-- [x] Database schema prepared for PostgreSQL + Prisma
-- [x] Role definitions and access-control helper declarations added
-- [x] Basic business-logic tests created for booking references and fees
+  if (!session || !session.user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
-## In progress
+  const role = (session.user as { role?: string }).role ?? 'customer';
 
-- [ ] Secure server-side authentication and session handling
-- [ ] Real database migrations and seeded demos
-- [ ] Payment verification and webhook safeguards
-- [ ] File upload validation and secure storage
-- [ ] Inventory movement and stock adjustment transactions
-- [ ] Quotation and job management workflows
-- [ ] Notification engine with provider separation
-- [ ] Production deployment and environment security checks
+  if (!['super_admin', 'business_owner'].includes(role)) {
+    return NextResponse.json({ error: 'Forbidden: financial reports require admin access.' }, { status: 403 });
+  }
 
-## Not yet tested
+  const searchParams = request.nextUrl.searchParams;
+  const from = searchParams.get('from') ?? '2026-01-01';
+  const to = searchParams.get('to') ?? '2026-12-31';
 
-- [ ] Full Next.js production build execution
-- [ ] Login and registration in an authenticated environment
-- [ ] Payment sandbox verification flow
-- [ ] Inventory stock movement logic under concurrency
-- [ ] Unauthorized access checks
-- [ ] Mobile responsiveness automated checks
+  return NextResponse.json({
+    summary: {
+      revenue: 18500000,
+      expenses: 8100000,
+      paid: 14700000,
+      outstanding: 3800000,
+      estimatedProfit: 10400000,
+    },
+    filter: { from, to },
+    generatedBy: session.user.email,
+    message: 'Demo report generated. Production version should read from the database and apply access checks.',
+  });
+}
