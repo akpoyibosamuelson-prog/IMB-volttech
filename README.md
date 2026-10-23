@@ -1,6 +1,6 @@
-# VoltBiz
+# IMB tech
 
-VoltBiz is a demo-first, production-ready business management platform for electrical service operations, vendor inventory, marketplace orders, and customer job tracking.
+IMB tech is a demo-first, production-ready business management platform for electrical service operations, vendor inventory, marketplace orders, and customer job tracking.
 
 ## Stack
 
