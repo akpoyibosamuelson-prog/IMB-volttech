@@ -1,21 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  role: z.enum(['customer', 'business_owner', 'electrician', 'wholesaler', 'retailer', 'super_admin']).optional(),
+});
 
 export async function POST(request: NextRequest) {
   try {
-    const payload = await request.json();
+    const json = await request.json();
+    const result = loginSchema.safeParse(json);
 
-    if (!payload.email || !payload.password) {
-      return NextResponse.json({ error: 'email and password are required' }, { status: 400 });
+    if (!result.success) {
+      return NextResponse.json(
+        { error: 'Invalid login payload', details: result.error.flatten() },
+        { status: 400 }
+      );
     }
 
     return NextResponse.json({
-      message: 'Demo login successful. Replace with secure server-side auth in production.',
+      message: 'Demo login successful. Replace with secure authentication in production.',
       user: {
-        email: payload.email,
-        role: payload.role || 'customer',
+        email: result.data.email,
+        role: result.data.role ?? 'customer',
       },
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Invalid login payload' }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
 }
