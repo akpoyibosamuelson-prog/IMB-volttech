@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      Role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  SUPER_ADMIN
+  BUSINESS_OWNER
+  ELECTRICIAN
+  WHOLESALER
+  RETAILER
+  CUSTOMER
+}
+
+model Service {
+  id          String @id @default(cuid())
+  name        String
+  category    String
+  description String
+  price       Float
+  estimateMin Float?
+  estimateMax Float?
+  duration    String
+  status      String @default("active")
+  createdAt   DateTime @default(now())
+}
+
+model Product {
+  id            String @id @default(cuid())
+  name          String
+  sku           String @unique
+  category      String
+  description   String
+  wholesalePrice Float
+  retailPrice   Float
+  purchaseCost  Float?
+  stock         Int @default(0)
+  minStock      Int @default(0)
+  supplier      String?
+  createdAt     DateTime @default(now())
+}
+
+model Booking {
+  id              String @id @default(cuid())
+  reference       String @unique
+  customerName    String
+  serviceName     String
+  description     String?
+  address         String
+  preferredDate   DateTime
+  status          String @default("pending")
+  createdAt       DateTime @default(now())
+}
+
+model InventoryMovement {
+  id          String @id @default(cuid())
+  productId   String
+  movementType String
+  quantity    Int
+  note        String?
+  createdAt   DateTime @default(now())
+}
+
+model Expense {
+  id          String @id @default(cuid())
+  category    String
+  amount      Float
+  description String
+  paymentMethod String
+  date        DateTime @default(now())
+}
+
+model Payment {
+  id             String @id @default(cuid())
+  amount         Float
+  paymentMethod  String
+  status         String @default("pending")
+  reference      String @unique
+  createdAt      DateTime @default(now())
+}
