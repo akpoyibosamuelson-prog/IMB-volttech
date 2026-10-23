@@ -98,26 +98,12 @@ export default function HomePage() {
         <SectionHeader eyebrow="How it works" title="Simple and transparent from first booking to final payment" />
         <div className="mt-10 grid gap-6 md:grid-cols-3">
           {[
-            {
-              title: '1. Book a service',
-              description: 'Choose an electrical service, attach images, and submit your service address and schedule.',
-              icon: Wrench,
-            },
-            {
-              title: '2. Receive quotation',
-              description: 'The business reviews the request, confirms eligibility, and sends a quote or estimate.',
-              icon: CreditCard,
-            },
-            {
-              title: '3. Track progress',
-              description: 'Follow your appointment, job progress, materials used, and payment status all in one dashboard.',
-              icon: Truck,
-            },
+            { title: '1. Book a service', description: 'Choose an electrical service, attach images, and submit your service address and schedule.', icon: Wrench },
+            { title: '2. Receive quotation', description: 'The business reviews the request, confirms eligibility, and sends a quote or estimate.', icon: CreditCard },
+            { title: '3. Track progress', description: 'Follow your appointment, job progress, materials used, and payment status all in one dashboard.', icon: Truck },
           ].map(({ title, description, icon: Icon }) => (
             <div key={title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="mb-4 inline-flex rounded-2xl bg-blue-100 p-3 text-blue-700">
-                <Icon className="h-6 w-6" />
-              </div>
+              <div className="mb-4 inline-flex rounded-2xl bg-blue-100 p-3 text-blue-700"><Icon className="h-6 w-6" /></div>
               <h3 className="text-xl font-bold text-slate-900">{title}</h3>
               <p className="mt-3 text-slate-600">{description}</p>
             </div>
@@ -136,9 +122,7 @@ export default function HomePage() {
               { title: 'Customer trust', description: 'Keep booking, payment, and job progress visible to the right users.', icon: CheckCircle2 },
             ].map(({ title, description, icon: Icon }) => (
               <div key={title} className="rounded-3xl border border-slate-700 bg-slate-800 p-6">
-                <div className="mb-4 inline-flex rounded-2xl bg-blue-700/30 p-3 text-blue-200">
-                  <Icon className="h-6 w-6" />
-                </div>
+                <div className="mb-4 inline-flex rounded-2xl bg-blue-700/30 p-3 text-blue-200"><Icon className="h-6 w-6" /></div>
                 <h3 className="text-xl font-bold">{title}</h3>
                 <p className="mt-3 text-slate-300">{description}</p>
               </div>

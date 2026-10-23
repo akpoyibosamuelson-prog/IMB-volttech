@@ -74,9 +74,7 @@ export function BookingForm() {
         <button type="submit" className="mt-8 w-full rounded-full bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700">Submit booking request</button>
 
         {submitted ? (
-          <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">
-            Booking request created successfully. Your reference will be issued after review.
-          </div>
+          <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">Booking request created successfully. Your reference will be issued after review.</div>
         ) : null}
       </form>
 

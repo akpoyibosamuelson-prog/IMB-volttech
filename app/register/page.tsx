@@ -16,7 +16,6 @@ export default function RegisterPage() {
             <div>• Vendor and staff operational dashboards</div>
           </div>
         </div>
-
         <div className="p-8 sm:p-10">
           <h2 className="text-2xl font-bold text-slate-900">Register</h2>
           <form className="mt-8 space-y-5">
@@ -30,7 +29,6 @@ export default function RegisterPage() {
                 <input type="text" className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none transition focus:border-blue-500 focus:bg-white" placeholder="Adele" />
               </div>
             </div>
-
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">Business or account type</label>
               <select className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none transition focus:border-blue-500 focus:bg-white">
@@ -41,17 +39,14 @@ export default function RegisterPage() {
                 <option>Retailer</option>
               </select>
             </div>
-
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">Email address</label>
               <input type="email" className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none transition focus:border-blue-500 focus:bg-white" placeholder="you@example.com" />
             </div>
-
             <div>
               <label className="mb-2 block text-sm font-medium text-slate-700">Password</label>
               <input type="password" className="w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none transition focus:border-blue-500 focus:bg-white" placeholder="Create a strong password" />
             </div>
-
             <button type="submit" className="w-full rounded-xl bg-blue-600 px-4 py-3 font-semibold text-white transition hover:bg-blue-700">Create account</button>
           </form>
           <div className="mt-6 text-center text-sm text-slate-600">Already registered? <a href="/login" className="font-semibold text-blue-700">Log in</a></div>

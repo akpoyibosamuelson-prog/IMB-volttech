@@ -16,7 +16,6 @@ export default function LoginPage() {
             <div>• Track assignments and delivery status</div>
           </div>
         </div>
-
         <div className="p-8 sm:p-10">
           <h2 className="text-2xl font-bold text-slate-900">Sign in</h2>
           <form className="mt-8 space-y-5">

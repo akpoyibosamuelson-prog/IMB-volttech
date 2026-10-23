@@ -11,23 +11,20 @@ const registerSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const json = await request.json();
-    const result = registerSchema.safeParse(json);
+    const payload = await request.json();
+    const parsed = registerSchema.safeParse(payload);
 
-    if (!result.success) {
-      return NextResponse.json(
-        { error: 'Invalid registration payload', details: result.error.flatten() },
-        { status: 400 }
-      );
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Invalid registration payload', details: parsed.error.flatten() }, { status: 400 });
     }
 
     return NextResponse.json({
-      message: 'Demo registration completed. Replace with secure server-side authentication in production.',
+      message: 'Demo registration completed. Replace with secure auth in production.',
       user: {
-        firstName: result.data.firstName,
-        lastName: result.data.lastName,
-        email: result.data.email,
-        role: result.data.role ?? 'customer',
+        firstName: parsed.data.firstName,
+        lastName: parsed.data.lastName,
+        email: parsed.data.email,
+        role: parsed.data.role ?? 'customer',
       },
     });
   } catch (error) {

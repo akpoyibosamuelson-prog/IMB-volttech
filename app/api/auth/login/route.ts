@@ -9,21 +9,18 @@ const loginSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
-    const json = await request.json();
-    const result = loginSchema.safeParse(json);
+    const payload = await request.json();
+    const parsed = loginSchema.safeParse(payload);
 
-    if (!result.success) {
-      return NextResponse.json(
-        { error: 'Invalid login payload', details: result.error.flatten() },
-        { status: 400 }
-      );
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Invalid login payload', details: parsed.error.flatten() }, { status: 400 });
     }
 
     return NextResponse.json({
-      message: 'Demo login successful. Replace with secure authentication in production.',
+      message: 'Demo login successful. Replace with secure server-side auth in production.',
       user: {
-        email: result.data.email,
-        role: result.data.role ?? 'customer',
+        email: parsed.data.email,
+        role: parsed.data.role ?? 'customer',
       },
     });
   } catch (error) {

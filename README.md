@@ -1,35 +1,31 @@
-# VoltBiz progress tracker
+# VoltBiz
 
-## Completed
+VoltBiz is an electrical services, inventory, and materials marketplace platform for Nigerian electrical businesses.
 
-- [x] Repository initialized and project scaffold created
-- [x] Marketing homepage implemented with mobile-responsive design
-- [x] Login and registration flows created
-- [x] Service booking form added with demo submission API
-- [x] Marketplace browsing and search implemented
-- [x] Customer and administrator dashboard layouts implemented
-- [x] Demo API endpoints created for health, products, booking, auth, inventory, file uploads, and payment webhook validation
-- [x] Database schema prepared for PostgreSQL + Prisma
-- [x] Role definitions and access-control helper declarations added
-- [x] Basic business-logic tests created for booking references and fees
-- [x] Auth session and authorization helpers added for server-side enforcement
-- [x] Inventory and financial report endpoints added with role checks
+## Current repository status
 
-## In progress
+The repository is being scaffolded with a production-friendly Next.js foundation. This initial implementation includes the public marketing site, customer/admin dashboard shells, demo booking flow, marketplace, and API routes.
 
-- [ ] Real database migrations and seeded demo data
-- [ ] Secure session integration with a persistent DB-backed user store
-- [ ] Payment verification and webhook safeguards with provider-specific logic
-- [ ] Inventory transaction safeguards, stock movement auditing, and reconciliation
-- [ ] Quotation and job management workflows
-- [ ] Notification engine and provider integrations
-- [ ] Production deployment and environment security checks
+## Recommended stack
 
-## Not yet tested
+- Frontend: Next.js + TypeScript + Tailwind CSS
+- Backend: Next.js route handlers and API layer
+- Database: PostgreSQL + Prisma ORM
+- Auth: NextAuth-ready pattern with role-based enforcement
+- Payments: Paystack or Flutterwave sandbox-ready verification flow
+- Storage: S3-compatible or Supabase object storage
 
-- [ ] Full Next.js production build execution
-- [ ] Login and registration in an authenticated environment
-- [ ] Payment sandbox verification flow
-- [ ] Inventory stock movement logic under concurrency
-- [ ] Unauthorized access checks
-- [ ] Mobile responsiveness automated checks
+## Known limitations
+
+- No persistent database has been configured yet
+- Authentication is currently scaffolded and mock-based
+- Real payment integration is not yet connected to a live provider
+- Production hardening and tests remain pending
+
+## Next implementation steps
+
+1. Configure a real Postgres database and Prisma migrations
+2. Add auth/session and authorization middleware
+3. Add inventory transaction logic and stock movement tracking
+4. Add secure upload and payment verification flows
+5. Run build and validation checks
