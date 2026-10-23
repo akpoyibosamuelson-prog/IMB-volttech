@@ -3,91 +3,144 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-}
-
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  role      Role
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 enum Role {
   SUPER_ADMIN
-  BUSINESS_OWNER
-  ELECTRICIAN
+  OWNER
+  STAFF
   WHOLESALER
   RETAILER
   CUSTOMER
 }
 
-model Service {
-  id          String @id @default(cuid())
-  name        String
-  category    String
-  description String
-  price       Float
-  estimateMin Float?
-  estimateMax Float?
-  duration    String
-  status      String @default("active")
-  createdAt   DateTime @default(now())
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  ASSIGNED
+  EN_ROUTE
+  IN_PROGRESS
+  AWAITING_MATERIALS
+  COMPLETED
+  CANCELLED
 }
 
-model Product {
-  id            String @id @default(cuid())
-  name          String
-  sku           String @unique
-  category      String
-  description   String
-  wholesalePrice Float
-  retailPrice   Float
-  purchaseCost  Float?
-  stock         Int @default(0)
-  minStock      Int @default(0)
-  supplier      String?
-  createdAt     DateTime @default(now())
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         Role      @default(CUSTOMER)
+  phone        String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  bookings     Booking[]
+  products     Product[]
+  orders       Order[]
+  expenses     Expense[]
+  notifications Notification[]
+}
+
+model Service {
+  id                    String   @id @default(cuid())
+  name                  String
+  description           String
+  category              String
+  imageUrl              String?
+  priceType             String
+  fixedPrice            Float?
+  estimateMin           Float?
+  estimateMax           Float?
+  durationMinutes       Int?
+  availability          String
+  inspectionRequirements String?
+  isActive              Boolean  @default(true)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  bookings              Booking[]
 }
 
 model Booking {
-  id              String @id @default(cuid())
-  reference       String @unique
-  customerName    String
-  serviceName     String
-  description     String?
-  address         String
-  preferredDate   DateTime
-  status          String @default("pending")
-  createdAt       DateTime @default(now())
+  id                String        @id @default(cuid())
+  bookingRef        String        @unique
+  reason            String
+  description       String
+  address           String
+  preferredDate     String
+  preferredTime     String
+  status            BookingStatus @default(PENDING)
+  fee               Float?
+  images            String?
+  createdAt         DateTime      @default(now())
+  serviceId         String
+  customerId        String
+  service           Service       @relation(fields: [serviceId], references: [id])
+  customer          User          @relation(fields: [customerId], references: [id])
 }
 
-model InventoryMovement {
-  id          String @id @default(cuid())
-  productId   String
-  movementType String
-  quantity    Int
-  note        String?
-  createdAt   DateTime @default(now())
+model Product {
+  id             String   @id @default(cuid())
+  name           String
+  description    String
+  category       String
+  sku            String   @unique
+  imageUrl       String?
+  purchaseCost   Float?
+  retailPrice    Float?
+  wholesalePrice Float?
+  stock          Int      @default(0)
+  minStock       Int      @default(0)
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  vendorId       String?
+  vendor         User?    @relation(fields: [vendorId], references: [id])
+  orderItems     OrderItem[]
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  customerId  String
+  customer    User        @relation(fields: [customerId], references: [id])
+  total       Float
+  status      String      @default("PENDING")
+  createdAt   DateTime    @default(now())
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  unitPrice Float
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Expense {
-  id          String @id @default(cuid())
+  id          String   @id @default(cuid())
+  userId      String
   category    String
   amount      Float
-  description String
   paymentMethod String
+  description String
   date        DateTime @default(now())
+  receiptUrl  String?
+  user        User     @relation(fields: [userId], references: [id])
 }
 
-model Payment {
-  id             String @id @default(cuid())
-  amount         Float
-  paymentMethod  String
-  status         String @default("pending")
-  reference      String @unique
-  createdAt      DateTime @default(now())
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  message   String
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id])
 }
