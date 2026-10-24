@@ -3,7 +3,7 @@ import { getCurrentUser, requireRole } from '@/lib/server-auth';
 import { demoInventory } from '@/lib/demo-store';
 
 export async function GET() {
-  const auth = requireRole(['SUPER_ADMIN', 'BUSINESS_OWNER', 'STAFF', 'CUSTOMER', 'WHOLESALER', 'RETAILER']);
+  const auth = await requireRole(['SUPER_ADMIN', 'BUSINESS_OWNER', 'STAFF', 'CUSTOMER', 'WHOLESALER', 'RETAILER']);
   if (auth.error) {
     return NextResponse.json({ error: auth.error }, { status: auth.user ? 403 : 401 });
   }
@@ -12,7 +12,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const user = getCurrentUser();
+  const user = await getCurrentUser();
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

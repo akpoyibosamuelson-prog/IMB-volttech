@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { requireRole } from '@/lib/server-auth';
 
 export async function GET() {
-  const auth = requireRole(['SUPER_ADMIN', 'BUSINESS_OWNER', 'STAFF']);
+  const auth = await requireRole(['SUPER_ADMIN', 'BUSINESS_OWNER', 'STAFF']);
   if (auth.error) {
     return NextResponse.json({ error: auth.error }, { status: auth.user ? 403 : 401 });
   }

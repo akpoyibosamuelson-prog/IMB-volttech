@@ -2,13 +2,14 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { decodeSessionUser } from '@/lib/auth';
 
-export function getCurrentUser() {
-  const token = cookies().get('voltbiz_session')?.value;
+export async function getCurrentUser() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('voltbiz_session')?.value;
   return decodeSessionUser(token);
 }
 
-export function requireRole(allowedRoles: string[]) {
-  const user = getCurrentUser();
+export async function requireRole(allowedRoles: string[]) {
+  const user = await getCurrentUser();
   if (!user) {
     return { user: null, error: 'Unauthorized' } as const;
   }

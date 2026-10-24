@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, BadgeCheck, Bolt, Building2, Car, CheckCircle2, Clock3, Download, Gauge, Home, MessageSquareQuote, ShieldCheck, ShoppingCart, Star, Tools, Truck, Wrench } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Bolt, Building2, Car, CheckCircle2, Clock3, Download, Gauge, Home, MessageSquareQuote, ShieldCheck, ShoppingCart, Star, Truck, Wrench } from 'lucide-react';
 import { demoServices, demoProducts, faqs, testimonials } from '@/lib/demo-data';
 
 export function HomePage() {
@@ -73,7 +73,7 @@ export function HomePage() {
       <section className="py-20">
         <div className="container-shell grid gap-8 overflow-hidden rounded-[32px] bg-slate-950 lg:grid-cols-2 lg:items-stretch">
           <div className="relative min-h-[280px] overflow-hidden lg:min-h-[420px]">
-            <Image src="/solar-installation.png" alt="Solar panels installed on a modern home" fill className="object-cover" priority />
+            <Image src="/solar-installation.jpg" alt="Solar panels installed on a modern home" fill className="object-cover" priority />
           </div>
           <div className="flex flex-col justify-center p-8 text-white md:p-12">
             <span className="badge w-fit border-volt-500 bg-volt-500/10 text-volt-100">Solar power, made practical</span>
@@ -194,7 +194,7 @@ export function HomePage() {
               [<Building2 key="business" className="text-volt-300" />, 'Business operations', 'Manage services, staff, inventory, and financial reporting.'],
               [<Gauge key="gauge" className="text-volt-300" />, 'Operational visibility', 'See live bookings, jobs, and outstanding balances.'],
             ].map(([icon, title, copy]) => (
-              <div key={title} className="rounded-2xl border border-slate-700 bg-slate-800 p-6">
+              <div key={typeof title === 'string' ? title : String(title)} className="rounded-2xl border border-slate-700 bg-slate-800 p-6">
                 <div className="mb-4 inline-flex rounded-xl bg-volt-500/10 p-3">{icon}</div>
                 <h3 className="text-lg font-bold text-white">{title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-300">{copy}</p>

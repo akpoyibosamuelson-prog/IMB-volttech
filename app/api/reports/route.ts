@@ -1,15 +1,10 @@
-import { PrismaClient } from '@prisma/client';
+import { NextResponse } from 'next/server';
 
-const globalForPrisma = globalThis as typeof globalThis & {
-  prisma?: PrismaClient;
-};
-
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
+export async function GET() {
+  return NextResponse.json({
+    revenue: 0,
+    bookings: 0,
+    customers: 0,
+    message: 'Reports are ready for live data.',
   });
-
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = prisma;
 }

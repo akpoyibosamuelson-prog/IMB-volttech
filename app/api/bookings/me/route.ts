@@ -3,7 +3,7 @@ import { getCurrentUser } from '@/lib/server-auth';
 import { demoBookings } from '@/lib/demo-store';
 
 export async function GET() {
-  const user = getCurrentUser();
+  const user = await getCurrentUser();
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

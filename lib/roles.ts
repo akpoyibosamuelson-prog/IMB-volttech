@@ -10,13 +10,13 @@ export const ROLES = {
 export type AppRole = (typeof ROLES)[keyof typeof ROLES];
 
 export function canAccessAdminDashboard(role: AppRole) {
-  return [ROLES.SUPER_ADMIN, ROLES.BUSINESS_OWNER].includes(role);
+  return ( [ROLES.SUPER_ADMIN, ROLES.BUSINESS_OWNER] as readonly string[]).includes(role);
 }
 
 export function canManageInventory(role: AppRole) {
-  return [ROLES.SUPER_ADMIN, ROLES.BUSINESS_OWNER, ROLES.RETAILER, ROLES.WHOLESALER].includes(role);
+  return ([ROLES.SUPER_ADMIN, ROLES.BUSINESS_OWNER, ROLES.RETAILER, ROLES.WHOLESALER] as readonly string[]).includes(role);
 }
 
 export function canViewCustomerRecords(role: AppRole) {
-  return [ROLES.SUPER_ADMIN, ROLES.BUSINESS_OWNER, ROLES.ELECTRICIAN].includes(role);
+  return ([ROLES.SUPER_ADMIN, ROLES.BUSINESS_OWNER, ROLES.ELECTRICIAN] as readonly string[]).includes(role);
 }

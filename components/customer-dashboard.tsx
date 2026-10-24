@@ -17,7 +17,7 @@ const recentBookings = [
 ];
 
 export function CustomerDashboard() {
-  const [bookings, setBookings] = useState<Array<Record<string, unknown>>>([]);
+  const [bookings, setBookings] = useState<Array<Record<string, string>>>([]);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('voltbiz-bookings') ?? '[]');

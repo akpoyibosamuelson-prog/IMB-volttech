@@ -3,7 +3,7 @@ import { getCurrentUser } from '@/lib/server-auth';
 import { demoBookings, demoInventory } from '@/lib/demo-store';
 
 export async function POST(request: Request) {
-  const user = getCurrentUser();
+  const user = await getCurrentUser();
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     address,
     preferredDate,
     preferredTime,
-    status: 'pending',
+    status: 'pending' as const,
     customerEmail: user.email,
     createdAt: new Date().toISOString(),
   };

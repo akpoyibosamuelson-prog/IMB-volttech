@@ -29,7 +29,8 @@ export async function POST(request: Request) {
 
     demoUsers.push(newUser);
     const sessionToken = encodeSessionUser({ id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role });
-    cookies().set('voltbiz_session', sessionToken, {
+    const cookieStore = await cookies();
+    cookieStore.set('voltbiz_session', sessionToken, {
       httpOnly: true,
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
