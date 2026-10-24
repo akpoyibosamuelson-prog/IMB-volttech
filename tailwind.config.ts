@@ -8,6 +8,9 @@ const config: Config = {
         volt: {
           50: '#eefbff',
           100: '#d8f4ff',
+          200: '#a9e7ff',
+          300: '#78d7ff',
+          400: '#48c2ff',
           500: '#1ca3ff',
           600: '#0d86d8',
           700: '#0a5ea3',

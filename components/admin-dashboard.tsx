@@ -1,11 +1,11 @@
 "use client";
 
-import { Activity, AlertTriangle, CreditCard, Inventory, NotebookPen, PackageCheck, ReceiptText, Users } from 'lucide-react';
+import { Activity, AlertTriangle, CreditCard, NotebookPen, Package, PackageCheck, ReceiptText, Users } from 'lucide-react';
 
 const cards = [
   { label: 'Revenue', value: '₦4.6M', icon: CreditCard },
   { label: 'Expenses', value: '₦1.9M', icon: ReceiptText },
-  { label: 'Inventory', value: '1,280', icon: Inventory },
+  { label: 'Inventory', value: '1,280', icon: Package },
   { label: 'Customers', value: '542', icon: Users },
 ];
 
