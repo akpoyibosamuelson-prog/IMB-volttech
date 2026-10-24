@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, MessageCircle, Phone } from 'lucide-react';
 
@@ -14,11 +15,9 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-sm">
       <div className="container-shell flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-volt-500 to-volt-700 font-black text-white">
-            V
-          </div>
+          <Image src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/IMG-20261023-WA0026-pF6Vd6GiW23epYZI0yJAqVBfFRZYNk.jpg" alt="IMB tech logo" width={48} height={48} className="h-12 w-12 rounded-xl object-cover" priority />
           <div>
-            <p className="text-lg font-black tracking-tight text-slate-900">VoltBiz</p>
+            <p className="text-lg font-black tracking-tight text-slate-900">IMB tech</p>
             <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-500">Electrical Services</p>
           </div>
         </Link>

@@ -4,8 +4,8 @@ import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 
 export const metadata: Metadata = {
-  title: 'VoltBiz | Electrical services and materials marketplace',
-  description: 'Professional electrical services, booking, inventory, and marketplace platform for Nigerian electrical businesses.',
+  title: 'IMB tech | Solar, electrical services and materials',
+  description: 'IMB tech delivers solar installations, electrical wiring, repairs, and quality materials for homes and businesses.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

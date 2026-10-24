@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, BadgeCheck, Bolt, Building2, Car, CheckCircle2, Clock3, Download, Gauge, Home, MessageSquareQuote, ShieldCheck, ShoppingCart, Star, Tools, Truck, Wrench } from 'lucide-react';
 import { demoServices, demoProducts, faqs, testimonials } from '@/lib/demo-data';
@@ -10,12 +11,12 @@ export function HomePage() {
       <section className="bg-gradient-to-br from-slate-950 via-slate-900 to-volt-900 text-white">
         <div className="container-shell grid gap-10 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:py-24">
           <div>
-            <span className="badge border-volt-500 bg-volt-500/10 text-volt-100">Trusted electrical business platform</span>
+            <span className="badge border-volt-500 bg-volt-500/10 text-volt-100">IMB tech solar and electrical experts</span>
             <h1 className="mt-6 max-w-xl text-4xl font-black tracking-tight md:text-5xl">
-              Smart electrical services and materials for homes, businesses, and contractors.
+              Reliable solar power and electrical services for homes, businesses, and contractors.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-slate-200">
-              VoltBiz helps clients book repairs, manage jobs, buy materials, track stock, and pay securely from one connected system.
+              IMB tech helps clients book repairs, manage jobs, buy materials, track stock, and pay securely from one connected system.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/bookings" className="btn-primary bg-volt-500 hover:bg-volt-400">Book a service</Link>
@@ -65,6 +66,25 @@ export function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container-shell grid gap-8 overflow-hidden rounded-[32px] bg-slate-950 lg:grid-cols-2 lg:items-stretch">
+          <div className="relative min-h-[280px] overflow-hidden lg:min-h-[420px]">
+            <Image src="/solar-installation.png" alt="Solar panels installed on a modern home" fill className="object-cover" priority />
+          </div>
+          <div className="flex flex-col justify-center p-8 text-white md:p-12">
+            <span className="badge w-fit border-volt-500 bg-volt-500/10 text-volt-100">Solar power, made practical</span>
+            <h2 className="mt-4 text-3xl font-black md:text-4xl">Power your home with dependable solar energy</h2>
+            <p className="mt-4 leading-7 text-slate-300">We assess your energy needs, recommend the right system, and install it safely for reliable day and night power.</p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {['Energy audit and load assessment', 'Solar panels and inverter sizing', 'Battery backup planning', 'Professional installation and maintenance'].map((item) => (
+                <div key={item} className="flex items-start gap-2 text-sm text-slate-200"><CheckCircle2 size={18} className="mt-0.5 shrink-0 text-volt-300" />{item}</div>
+              ))}
+            </div>
+            <Link href="/bookings" className="btn-primary mt-8 w-fit bg-volt-500 hover:bg-volt-400">Request solar assessment</Link>
           </div>
         </div>
       </section>
@@ -163,7 +183,7 @@ export function HomePage() {
       <section className="bg-slate-900 py-20 text-white">
         <div className="container-shell">
           <div className="text-center">
-            <span className="badge border-volt-500 bg-volt-500/10 text-volt-100">Why customers choose VoltBiz</span>
+            <span className="badge border-volt-500 bg-volt-500/10 text-volt-100">Why customers choose IMB tech</span>
             <h2 className="section-title mt-4 text-white">Everything your electrical business needs in one platform</h2>
           </div>
 

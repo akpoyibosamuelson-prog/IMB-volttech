@@ -18,7 +18,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-soft"><Zap className="h-5 w-5" /></div>
           <div>
-            <div className="text-lg font-black tracking-tight text-slate-900">VoltBiz</div>
+            <div className="text-lg font-black tracking-tight text-slate-900">IMB tech</div>
             <div className="text-[10px] uppercase tracking-[0.22em] text-slate-500">Electrical services</div>
           </div>
         </Link>
