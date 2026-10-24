@@ -37,7 +37,7 @@ export default function LoginPageClient() {
     <div className="container-shell py-16">
       <div className="mx-auto max-w-md rounded-[28px] border border-slate-200 bg-white p-8 shadow-soft">
         <div className="mb-6 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-volt-100 text-volt-700">V</div>
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-volt-100 text-volt-700">IMB</div>
           <h1 className="text-3xl font-black text-slate-900">Welcome back</h1>
           <p className="mt-2 text-sm text-slate-500">Use the demo credentials to access the dashboard</p>
         </div>

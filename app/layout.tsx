@@ -4,7 +4,7 @@ import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 
 export const metadata: Metadata = {
-  title: 'VoltBiz | Electrical services and materials marketplace',
+  title: 'IMB tech | Electrical services and materials marketplace',
   description: 'Professional electrical services, booking, inventory, and marketplace platform for Nigerian electrical businesses.',
 };
 

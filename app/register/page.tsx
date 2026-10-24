@@ -40,7 +40,7 @@ export default function RegisterPageClient() {
       <div className="mx-auto max-w-md rounded-[28px] border border-slate-200 bg-white p-8 shadow-soft">
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-black text-slate-900">Create your account</h1>
-          <p className="mt-2 text-sm text-slate-500">Select your role and start using VoltBiz</p>
+          <p className="mt-2 text-sm text-slate-500">Select your role and start using IMB tech</p>
         </div>
 
         <form className="space-y-4" onSubmit={handleSubmit}>

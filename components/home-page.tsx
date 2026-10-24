@@ -15,7 +15,7 @@ export function HomePage() {
               Smart electrical services and materials for homes, businesses, and contractors.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-slate-200">
-              VoltBiz helps clients book repairs, manage jobs, buy materials, track stock, and pay securely from one connected system.
+              IMB tech helps clients book repairs, manage jobs, buy materials, track stock, and pay securely from one connected system.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/bookings" className="btn-primary bg-volt-500 hover:bg-volt-400">Book a service</Link>
@@ -163,7 +163,7 @@ export function HomePage() {
       <section className="bg-slate-900 py-20 text-white">
         <div className="container-shell">
           <div className="text-center">
-            <span className="badge border-volt-500 bg-volt-500/10 text-volt-100">Why customers choose VoltBiz</span>
+            <span className="badge border-volt-500 bg-volt-500/10 text-volt-100">Why customers choose IMB tech</span>
             <h2 className="section-title mt-4 text-white">Everything your electrical business needs in one platform</h2>
           </div>
 

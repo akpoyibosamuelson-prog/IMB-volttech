@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="border-t border-slate-200 bg-slate-950 text-slate-300">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div>
-          <div className="text-lg font-black text-white">VoltBiz</div>
+          <div className="text-lg font-black text-white">IMB tech</div>
           <p className="mt-3 text-sm text-slate-400">Electrical services, inventory, and material ordering built for modern businesses in Nigeria.</p>
         </div>
         <div>
@@ -33,7 +33,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-slate-800 py-6 text-center text-sm text-slate-400">© 2026 VoltBiz. Powered for modern electrical commerce.</div>
+      <div className="border-t border-slate-800 py-6 text-center text-sm text-slate-400">© 2026 IMB tech. Powered for modern electrical commerce.</div>
     </footer>
   );
 }

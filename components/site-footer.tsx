@@ -7,9 +7,9 @@ export function SiteFooter() {
       <div className="container-shell grid gap-10 py-12 md:grid-cols-4">
         <div>
           <div className="mb-4 flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-volt-500 to-volt-700 font-black text-white">V</div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-volt-500 to-volt-700 font-black text-white">IMB</div>
             <div>
-              <p className="text-lg font-black text-white">VoltBiz</p>
+              <p className="text-lg font-black text-white">IMB tech</p>
               <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">Electrical services</p>
             </div>
           </div>

@@ -15,10 +15,10 @@ export function SiteHeader() {
       <div className="container-shell flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-volt-500 to-volt-700 font-black text-white">
-            V
+            IMB
           </div>
           <div>
-            <p className="text-lg font-black tracking-tight text-slate-900">VoltBiz</p>
+            <p className="text-lg font-black tracking-tight text-slate-900">IMB tech</p>
             <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-500">Electrical Services</p>
           </div>
         </Link>
